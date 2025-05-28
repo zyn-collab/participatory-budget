@@ -1,0 +1,84 @@
+## How We Pick Two Budget Options for You to Compare (Plain English)
+
+This explains how the system tries to find two different spending options for you to compare, based on the budget you set. These options can be a single project, a bundle of multiple projects, or even a percentage share of a very large project.
+
+**Goal:** Find two distinct options that are both financially relevant to your budget, making your comparison task realistic and meaningful.
+
+**Why these rules?** The overall aim is to simulate real-world budget decisions where you might compare a single large initiative against a group of smaller ones, a portion of a major project against other opportunities, or two different approaches to spending a similar amount of money.
+
+**Key Concepts:**
+
+*   **Budget Window (95% - 105% of your set budget):**
+    *   **What it is:** For an option to be considered a "direct fit," its cost (or the total cost of a bundle) must fall within this tight range around your `currentBudget`.
+    *   **Why:** Trying to find options that *exactly* match a specific budget number is often impossible with real project costs. This narrow window ensures the options are still very comparable in financial scale, making your choice more focused and relevant, without being overly restrictive.
+
+*   **Types of Spending Options We Can Create:**
+
+    1.  **Single Projects (Direct Fit):**
+        *   **What it is:** An individual project whose own `cost_mvr` falls within the 95%-105% budget window.
+        *   **Why:** Represents a straightforward decision to fund a complete, standalone initiative.
+
+    2.  **Project Bundles (Combinations):**
+        *   **What it is:** A group of 2 to **3** distinct projects.
+        *   The *total cost* of all projects in the bundle must be within the 95%-105% budget window.
+        *   **Why:** In reality, a sum of money isn't just for one project of that exact size. It could also be used to fund several smaller, valuable initiatives. This rule allows you to explore such trade-offs.
+        *   **Limit of 2 to 3 projects per bundle:** Keeps the bundles from becoming too long and complex, which would be hard to evaluate quickly.
+
+    3.  **Partial Funding (Programme Shares):**
+        *   **What it is:** If a single project is too expensive (its full cost is *more* than 105% of your `currentBudget`), the system might propose funding only a *share* of it.
+        *   The share percentage is calculated so that its `effectiveCost` is exactly equal to your `currentBudget`.
+        *   For a share to be considered, the calculated percentage must be between 50% and 99% (inclusive) of the project's total cost. (e.g., "65% of Project Titan").
+        *   **Why:** Allows very large, important projects to still be considered in matchups, even if their full cost exceeds the immediate budget. It lets you weigh the value of making partial progress on a major initiative.
+
+**How We Pick Two Options for You to Compare:**
+
+1.  **Gather All Possible Candidates:**
+    *   First, the system identifies all potential options based on your `currentBudget`:
+        *   All **Single Projects** whose costs are within the 95%-105% budget window.
+        *   All valid **Project Bundles** (2-3 programmes) whose total costs are within the 95%-105% budget window.
+        *   All valid **Programme Shares** (for projects too large for the budget, where a 50%-99% share would have an effective cost equal to your `currentBudget`).
+
+2.  **Select Two Distinct Options:**
+    *   From this combined pool of all generated singles, bundles, and shares, the system then attempts to select two *distinct* options to present to you.
+    *   The goal is to ensure you are comparing two genuinely different choices. For example, it won't show you the same project twice, or a project and a bundle that happens to contain only that exact same project (if such a scenario were possible under the rules).
+    *   The system tries to provide variety in the types of options shown over time if multiple types are available.
+
+3.  **If Suitable Options Cannot Be Found:**
+    *   If, after searching through all possibilities, the system cannot find two distinct, valid options that meet the criteria for your current budget (e.g., there are too few projects, or no combinations/shares can be reasonably formed):
+        *   It will display a message like "Could not find suitable matchup options for the current budget. Try adjusting the budget or adding more programmes."
+
+---
+
+## How We Rate the Projects (Elo Rating Logic)
+
+When you choose one option over another, we need a way to update the underlying "desirability" or "priority" scores of the projects involved. We use a system called Elo rating for this, similar to how chess players are rated.
+
+**The Basic Idea of Elo:**
+*   Every project starts with a default rating (e.g., 1500).
+*   When one option wins a comparison, its associated project(s) gain Elo points, and the loser's associated project(s) lose Elo points.
+*   The number of points gained or lost depends on the rating difference between the winner and loser before the match: beating a much higher-rated opponent gives more points than beating a lower-rated one.
+
+**How Elo Applies to Different Types of Options:**
+
+*   **Single Project vs. Single Project:**
+    *   This is straightforward. The winning project gains points, the losing project loses points, and these changes are directly applied to their respective ratings.
+
+*   **When a Project Bundle (Combination) Wins:**
+    *   The bundle as a whole is the winner. We calculate the total Elo points this "winning side" should gain.
+    *   These gained points are then **distributed among the individual projects within the winning bundle.** This distribution is **proportional to each project's original `cost_mvr`** as part of that bundle.
+    *   *Justification:* Your vote affirmed that this specific *collection* of projects was a good use of funds for that budget. Distributing the points proportionally acknowledges that some projects in the bundle might have contributed more (in terms of cost, and thus, budget share) to making that bundle a winner.
+
+*   **When a Project Bundle (Combination) Loses:**
+    *   The bundle as a whole is the loser. We calculate the total Elo points this "losing side" should lose.
+    *   These lost points are then **distributed among the individual projects within the losing bundle.** This distribution is **proportional to each project's original `cost_mvr`** as part of that bundle.
+    *   *Justification:* Your vote indicated the bundle, as presented, was less preferable. Distributing the points lost proportionally reflects that some projects in the bundle might have contributed more (in terms of cost) to that bundle being the less favored option. This approach aims to avoid a systemic bias against programmes merely for being part of a combination.
+
+*   **When a Programme Share Wins (e.g., "50% of Hospital Project"):**
+    *   If an option representing a share of a larger project wins a matchup, the **underlying base project (the entire "Hospital Project" in this example) gets the full Elo point gain.**
+    *   *Justification:* Your vote for a share of a large project signals that the large project itself is highly desirable and important enough to fund, even if only a portion of its cost was considered in that particular comparison. The vote reflects positively on the core project's overall merit.
+
+*   **When a Programme Share Loses:**
+    *   Similarly, if an option like "50% of Hospital Project" loses, the **underlying base project (the entire "Hospital Project") loses the full Elo points.**
+    *   *Justification:* The reasoning is the same as for winning – the outcome reflects on the desirability of the core project from which the share was derived. Your decision implies that even investing a portion in that direction was less preferable than the alternative.
+
+This Elo system helps us dynamically adjust project ratings based on your preferences, leading to a more refined priority list over many comparisons. 

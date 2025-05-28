@@ -1,0 +1,120 @@
+## Logic Flow for generateBudgetedMatchupOptions Function
+
+This function aims to produce a pair of two distinct `MatchupOption`s (single `Programme`, `ProgrammeShareOption`, or `ProgrammeCombination`) based on a `currentBudget`.
+
+**Constants & Initial Setup:**
+1.  `currentBudget`: The budget constraint provided. If `null`, the function exits early.
+2.  `minBudgetWindow` = `currentBudget` \* 0.95
+3.  `maxBudgetWindow` = `currentBudget` \* 1.05
+4.  `maxProgrammesInCombination` = 3 (Note: This was changed from 8)
+5.  Initialize `singleOptionsInWindow`: Array for `Programme`s fitting the budget window.
+6.  Initialize `shareOptionsInWindow`: Array for `ProgrammeShareOption`s where a share fits the budget.
+7.  Initialize `combinationOptionsInWindow`: Array for `ProgrammeCombination`s fitting the budget window.
+
+**Step 1: Populate `singleOptionsInWindow`**
+   - Iterate through all `programmes`.
+   - For each `programme`:
+     - IF `programme.cost_mvr` >= `minBudgetWindow` AND `programme.cost_mvr` <= `maxBudgetWindow`:
+       - Add this `programme` to `singleOptionsInWindow`.
+
+**Step 2: Populate `shareOptionsInWindow`**
+   - Constants: `minPracticalShare` = 0.50, `maxPracticalShare` = 0.99.
+   - Iterate through all `programmes`.
+   - For each `programme`:
+     - IF `programme.cost_mvr` > `maxBudgetWindow` (i.e., too expensive for full funding):
+       - Calculate `calculatedSharePercentage` = `currentBudget` / `programme.cost_mvr`.
+       - IF `calculatedSharePercentage` >= `minPracticalShare` AND `calculatedSharePercentage` <= `maxPracticalShare`:
+         - Create a `ProgrammeShareOption` object with:
+           - `id`: e.g., `share-${roundedPercentage}-${programme.id}`
+           - `name`: e.g., `"XX.X% of Programme Name"`
+           - `baseProgramme`: The original `programme` object.
+           - `sharePercentage`: `calculatedSharePercentage`.
+           - `effectiveCost`: `currentBudget`.
+           - `type`: 'share'.
+         - Add this `ProgrammeShareOption` to `shareOptionsInWindow`.
+
+**Step 3: Populate `combinationOptionsInWindow`**
+   - Filter master `programmes` list for `candidateProgrammesForCombination` (those with `cost_mvr` <= `maxBudgetWindow`). Sort by ID.
+   - Initialize `foundCombinationsSet` (a `Set` for unique combination IDs).
+   - **Recursive Helper `findValidCombinationsRecursive(startIndex, currentCombinationMembers, currentSum)`:**
+     - **Base Case for Valid Combination:**
+       - IF `currentCombinationMembers.length` >= 2 AND `currentCombinationMembers.length` <= `maxProgrammesInCombination`
+         AND `currentSum` >= `minBudgetWindow` AND `currentSum` <= `maxBudgetWindow`:
+         - Generate `combinationId` (e.g., `"combo-ID1-ID2"`, sorted IDs).
+         - IF `combinationId` is NOT in `foundCombinationsSet`:
+           - Add to `foundCombinationsSet`.
+           - Create `ProgrammeCombination` object and add to `combinationOptionsInWindow`.
+     - **Recursive Step:**
+       - IF `currentCombinationMembers.length` < `maxProgrammesInCombination`:
+         - Loop `i` from `startIndex` through `candidateProgrammesForCombination`:
+           - Let `nextProgramme` = `candidateProgrammesForCombination[i]`.
+           - IF `currentSum` + `nextProgramme.cost_mvr` <= `maxBudgetWindow` (pruning):
+             - Add `nextProgramme`, recurse: `findValidCombinationsRecursive(i + 1, ...)`, then backtrack (pop).
+   - Initial call: `findValidCombinationsRecursive(0, [], 0)`.
+
+**Step 4: Matchup Selection Logic**
+
+   **A. Helper: `getTwoDistinctOptions(pool)`**
+      - Takes a `pool` of `MatchupOption`s.
+      - IF `pool.length` < 2, RETURN `null`.
+      - Attempts to randomly select two distinct options from the pool (by index and then ID check).
+      - If random attempts fail, iterates to find the first two distinct options.
+      - RETURN `[optionA, optionB]` (randomized order) or `null`.
+
+   **B. Helper: `selectRandomOptionFromWeightedTypes(typeConfigs)`**
+      - `typeConfigs`: An array of `{ typeName: string, weight: number, pool: MatchupOption[] }`.
+      - Filters for types with non-empty pools.
+      - IF no available types, RETURN `null`.
+      - Calculates `totalWeight`.
+      - Handles zero total weight by picking randomly from any available type.
+      - Rolls a `randomRoll` against `totalWeight` and picks an option from a pool based on its weight.
+      - RETURN a randomly selected `MatchupOption` from the chosen type's pool or `null`.
+
+   **C. Selecting `option1`:**
+      - Define `opt1TypeConfigs` with weights and pools for 'single' (from `singleOptionsInWindow`) and 'share' (from `shareOptionsInWindow`).
+         - e.g., `single` weight: 0.65, `share` weight: 0.35.
+      - `option1` = `selectRandomOptionFromWeightedTypes(opt1TypeConfigs)`.
+
+   **D. Early Exit if `option1` is not found (Fallback to Combo-vs-Combo):**
+      - IF `!option1`:
+         - IF `combinationOptionsInWindow.length` >= 2:
+           - `comboPair` = `getTwoDistinctOptions(combinationOptionsInWindow)`.
+           - IF `comboPair`, **RETURN `comboPair`**. 
+         - **RETURN `null`** (cannot form even a combo-vs-combo pair).
+
+   **E. Selecting `option2` (distinct from `option1`):**
+      - Initialize `option2` = `null`.
+      - Loop `maxAttemptsForOption2` (e.g., 10) times:
+         - Create `candidateSingles` and `candidateShares` pools, filtering out `option1` if it was of that type.
+         - `candidateCombos` = `combinationOptionsInWindow` (combinations are always candidates for `option2` unless `option1` itself was a combo, which is not possible here as `option1` is single/share).
+         - Define `opt2TypeConfigs` with weights for 'single', 'share', and 'combo' types using their respective candidate pools.
+           - e.g., `single` weight: 0.45, `share` weight: 0.40, `combo` weight: 0.25.
+         - `tempOption2` = `selectRandomOptionFromWeightedTypes(opt2TypeConfigs)`.
+         - IF `tempOption2` AND `tempOption2.id !== option1.id`:
+           - `option2` = `tempOption2`.
+           - BREAK loop.
+
+   **F. Fallback for `option2` if not found via weighted selection:**
+      - IF `!option2`:
+         - **Fallback 1 (If `option1` is a single Programme, try pairing with a Combo):**
+           - IF `option1` is a `Programme` (not share/combo) AND `combinationOptionsInWindow.length` > 0:
+             - `comboForOption2` = random choice from `combinationOptionsInWindow`.
+             - IF `comboForOption2.id !== option1.id`, `option2` = `comboForOption2`.
+         - **Fallback 2 (If still no `option2`, `option1` exists but isn't a Combo, try Combo-vs-Combo not involving `option1`):**
+           - IF `!option2` AND `option1` is not a `ProgrammeCombination` AND `combinationOptionsInWindow.length` >= 2:
+             - `comboPair` = `getTwoDistinctOptions(combinationOptionsInWindow)`.
+             - IF `comboPair` AND `comboPair[0].id !== option1.id` AND `comboPair[1].id !== option1.id`:
+               - **RETURN `comboPair`**.
+         - IF still `!option2`, **RETURN `null`** (cannot find a suitable `option2`).
+
+   **G. Final Return:**
+      - If `option1` and `option2` are both successfully selected:
+         - **RETURN `[option1, option2]` (randomly ordered).**
+      - Otherwise (covered by previous return nulls), implies failure to form a pair.
+
+**(DEBUGGING BLOCK - Conditional on `currentBudget` === 660000)**
+   - `console.log` values of `minBudgetWindow`, `maxBudgetWindow`, `singleOptionsInWindow.length`, `combinationOptionsInWindow.length`, and first 5 `combinationOptionsInWindow` if any.
+
+**Step 5: Final Fallback**
+   - IF execution reaches this point (neither Priority 1 nor Priority 2 succeeded):
+     - **RETURN `null` (FAILURE - No suitable pair could be formed).** 

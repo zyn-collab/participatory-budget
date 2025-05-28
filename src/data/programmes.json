@@ -1,0 +1,569 @@
+[
+  {
+    "id": "HSP-001",
+    "name": "30-bed Hospital, Fuvahmulah",
+    "cost_mvr": 32000000,
+    "purpose": "Provide inpatient care",
+    "justification": "Clinic overcrowded; no overnight beds.",
+    "status": "Nearest ward 55 km away; clinic at 140 % capacity.",
+    "rating": 1500
+  },
+  {
+    "id": "LIB-002",
+    "name": "Island Library Refurbishment",
+    "cost_mvr": 6500000,
+    "purpose": "Upgrade reading rooms and IT lab",
+    "justification": "90 % of shelves empty due to humidity damage.",
+    "status": "Building last renovated 2003; no public Wi-Fi.",
+    "rating": 1500
+  },
+  {
+    "id": "WTR-003",
+    "name": "Rainwater Harvest Tanks",
+    "cost_mvr": 4500000,
+    "purpose": "Secure dry-season potable water",
+    "justification": "Groundwater salinity rising; tanker deliveries costly.",
+    "status": "60 % homes rely on bottled water six months a year.",
+    "rating": 1500
+  },
+  {
+    "id": "SCH-004",
+    "name": "Teacher Housing Subsidy",
+    "cost_mvr": 300000,
+    "purpose": "Attract STEM teachers to remote islands",
+    "justification": "Vacancy rate 28 % for physics and maths.",
+    "status": "Average tenure 18 months; turnover disrupts classes.",
+    "rating": 1500
+  },
+  {
+    "id": "ROD-005",
+    "name": "Coastal Road Protection",
+    "cost_mvr": 15000000,
+    "purpose": "Prevent erosion of main island highway",
+    "justification": "Sea level rise threatening critical infrastructure.",
+    "status": "200m section lost in last monsoon; detour adds 45 mins.",
+    "rating": 1500
+  },
+  {
+    "id": "FIS-006",
+    "name": "Fish Processing Plant",
+    "cost_mvr": 25000000,
+    "purpose": "Add value to local catch",
+    "justification": "90% of fish exported unprocessed; losing value.",
+    "status": "Current facility at 30% capacity; outdated equipment.",
+    "rating": 1500
+  },
+  {
+    "id": "SOL-007",
+    "name": "Solar Microgrids",
+    "cost_mvr": 18000000,
+    "purpose": "Reduce diesel dependency",
+    "justification": "Islands spend 40% of budget on fuel imports.",
+    "status": "Current generators 15 years old; frequent outages.",
+    "rating": 1500
+  },
+  {
+    "id": "WST-008",
+    "name": "Waste Management System",
+    "cost_mvr": 12000000,
+    "purpose": "Modernize island waste handling",
+    "justification": "Current landfill at 95% capacity; no recycling.",
+    "status": "Burning waste causing health issues; no sorting facility.",
+    "rating": 1500
+  },
+  {
+    "id": "EDU-009",
+    "name": "Digital Literacy Program for Adults",
+    "cost_mvr": 75000,
+    "purpose": "Enhance IT skills in the adult population",
+    "justification": "Low digital literacy hindering access to online services and job opportunities.",
+    "status": "Pending",
+    "rating": 1500
+  },
+  {
+    "id": "HLT-010",
+    "name": "Mobile Health Clinic Outreach",
+    "cost_mvr": 250000,
+    "purpose": "Provide basic health checkups in remote areas",
+    "justification": "Difficulty for residents in outer islands to access regular health services.",
+    "status": "Pending",
+    "rating": 1500
+  },
+  {
+    "id": "AGR-011",
+    "name": "Hydroponics Farming Initiative",
+    "cost_mvr": 150000,
+    "purpose": "Promote sustainable local food production",
+    "justification": "Heavy reliance on imported produce; limited arable land.",
+    "status": "Pending",
+    "rating": 1500
+  },
+  {
+    "id": "TRM-012",
+    "name": "Tourism Sector Skill Development",
+    "cost_mvr": 90000,
+    "purpose": "Train youth for hospitality industry jobs",
+    "justification": "High youth unemployment and demand for skilled workers in tourism.",
+    "status": "Pending",
+    "rating": 1500
+  },
+  {
+    "id": "ENV-013",
+    "name": "Coral Reef Monitoring & Restoration",
+    "cost_mvr": 450000,
+    "purpose": "Protect and rejuvenate damaged coral reefs",
+    "justification": "Coral bleaching and physical damage impacting marine biodiversity and tourism.",
+    "status": "Pending",
+    "rating": 1500
+  },
+  {
+    "id": "SMF-014",
+    "name": "Small Business Grant Scheme",
+    "cost_mvr": 600000,
+    "purpose": "Support entrepreneurs and startup businesses",
+    "justification": "Lack of access to capital for new ventures.",
+    "status": "Pending",
+    "rating": 1500
+  },
+  {
+    "id": "CUL-015",
+    "name": "Cultural Heritage Preservation",
+    "cost_mvr": 30000,
+    "purpose": "Document and preserve traditional crafts and oral histories",
+    "justification": "Risk of losing intangible cultural heritage.",
+    "status": "Pending",
+    "rating": 1500
+  },
+  {
+    "id": "INF-016",
+    "name": "Community Internet Access Points",
+    "cost_mvr": 55000,
+    "purpose": "Provide free or low-cost internet in public spaces",
+    "justification": "Digital divide affecting education and economic participation.",
+    "status": "Pending",
+    "rating": 1500
+  },
+  {
+    "id": "SPT-017",
+    "name": "Youth Sports Development Program",
+    "cost_mvr": 120000,
+    "purpose": "Promote healthy lifestyles and teamwork through sports",
+    "justification": "Limited recreational facilities and programs for youth.",
+    "status": "Pending",
+    "rating": 1500
+  },
+  {
+    "id": "DRR-018",
+    "name": "Disaster Risk Reduction Training",
+    "cost_mvr": 40000,
+    "purpose": "Equip communities with disaster preparedness skills",
+    "justification": "Vulnerability to natural disasters like tsunamis and storms.",
+    "status": "Pending",
+    "rating": 1500
+  },
+  {
+    "id": "WSH-019",
+    "name": "Public Toilet Block Construction",
+    "cost_mvr": 85000,
+    "purpose": "Improve sanitation in public areas",
+    "justification": "Lack of adequate public sanitation facilities in high-traffic zones.",
+    "status": "Pending",
+    "rating": 1500
+  },
+  {
+    "id": "ART-020",
+    "name": "Artisan Support & Market Linkage",
+    "cost_mvr": 65000,
+    "purpose": "Help local artisans market and sell their products",
+    "justification": "Difficulty for artisans to reach wider markets.",
+    "status": "Pending",
+    "rating": 1500
+  },
+  {
+    "id": "EDU-021",
+    "name": "Special Needs Education Resources",
+    "cost_mvr": 220000,
+    "purpose": "Provide necessary tools and support for special needs students",
+    "justification": "Inadequate resources in schools for children with disabilities.",
+    "status": "Pending",
+    "rating": 1500
+  },
+  {
+    "id": "TRN-022",
+    "name": "Inter-Island Ferry Service Upgrade",
+    "cost_mvr": 850000,
+    "purpose": "Improve reliability and safety of island transport",
+    "justification": "Aging ferry fleet causing frequent disruptions and safety concerns.",
+    "status": "Pending",
+    "rating": 1500
+  },
+  {
+    "id": "ENV-023",
+    "name": "Mangrove Replantation Drive",
+    "cost_mvr": 180000,
+    "purpose": "Restore mangrove ecosystems for coastal protection",
+    "justification": "Loss of mangroves increasing coastal erosion.",
+    "status": "Pending",
+    "rating": 1500
+  },
+  {
+    "id": "HLT-024",
+    "name": "Mental Health Awareness Campaign",
+    "cost_mvr": 25000,
+    "purpose": "Reduce stigma and improve access to mental health support",
+    "justification": "Growing mental health issues with limited public awareness and services.",
+    "status": "Pending",
+    "rating": 1500
+  },
+  {
+    "id": "SME-025",
+    "name": "Export Promotion for Local Products",
+    "cost_mvr": 350000,
+    "purpose": "Assist small and medium enterprises in accessing international markets",
+    "justification": "Limited export capacity despite potential for local products.",
+    "status": "Pending",
+    "rating": 1500
+  },
+  {
+    "id": "RUR-026",
+    "name": "Rural Electrification Enhancement",
+    "cost_mvr": 700000,
+    "purpose": "Extend electricity grid to underserved rural households",
+    "justification": "Lack of reliable electricity hindering development in remote areas.",
+    "status": "Pending",
+    "rating": 1500
+  },
+  {
+    "id": "VOC-027",
+    "name": "Vocational Training Center Equipment",
+    "cost_mvr": 480000,
+    "purpose": "Upgrade equipment at vocational training centers",
+    "justification": "Outdated equipment not aligned with current industry needs.",
+    "status": "Pending",
+    "rating": 1500
+  },
+  {
+    "id": "WAT-028",
+    "name": "Water Quality Testing Labs",
+    "cost_mvr": 95000,
+    "purpose": "Establish regional water quality testing facilities",
+    "justification": "Ensure safe drinking water by regular monitoring.",
+    "status": "Pending",
+    "rating": 1500
+  },
+  {
+    "id": "YTH-029",
+    "name": "Youth Entrepreneurship Bootcamp",
+    "cost_mvr": 110000,
+    "purpose": "Provide intensive training for aspiring young entrepreneurs",
+    "justification": "Need to foster innovation and self-employment among youth.",
+    "status": "Pending",
+    "rating": 1500
+  },
+  {
+    "id": "EGY-030",
+    "name": "Energy Efficiency Audits for Public Buildings",
+    "cost_mvr": 60000,
+    "purpose": "Identify energy saving opportunities in government buildings",
+    "justification": "High energy consumption and costs in public sector.",
+    "status": "Pending",
+    "rating": 1500
+  },
+  {
+    "id": "COM-031",
+    "name": "Community Radio Station Setup",
+    "cost_mvr": 130000,
+    "purpose": "Establish local radio for information dissemination and community engagement",
+    "justification": "Lack of localized media in many islands.",
+    "status": "Pending",
+    "rating": 1500
+  },
+  {
+    "id": "DRN-032",
+    "name": "Drainage System Improvement for Flood Prevention",
+    "cost_mvr": 550000,
+    "purpose": "Upgrade urban drainage to mitigate seasonal flooding",
+    "justification": "Frequent flooding disrupting lives and causing property damage.",
+    "status": "Pending",
+    "rating": 1500
+  },
+  {
+    "id": "REC-033",
+    "name": "Public Park and Recreational Space Development",
+    "cost_mvr": 320000,
+    "purpose": "Create green spaces for community well-being",
+    "justification": "Shortage of accessible public parks and recreational areas.",
+    "status": "Pending",
+    "rating": 1500
+  },
+  {
+    "id": "PLC-034",
+    "name": "Placeholder Project A",
+    "cost_mvr": 50000,
+    "purpose": "Placeholder purpose A",
+    "justification": "Placeholder justification A",
+    "status": "Pending",
+    "rating": 1500
+  },
+  {
+    "id": "PLC-035",
+    "name": "Placeholder Project B",
+    "cost_mvr": 150000,
+    "purpose": "Placeholder purpose B",
+    "justification": "Placeholder justification B",
+    "status": "Pending",
+    "rating": 1500
+  },
+  {
+    "id": "PLC-036",
+    "name": "Placeholder Project C",
+    "cost_mvr": 275000,
+    "purpose": "Placeholder purpose C",
+    "justification": "Placeholder justification C",
+    "status": "Pending",
+    "rating": 1500
+  },
+  {
+    "id": "PLC-037",
+    "name": "Placeholder Project D",
+    "cost_mvr": 80000,
+    "purpose": "Placeholder purpose D",
+    "justification": "Placeholder justification D",
+    "status": "Pending",
+    "rating": 1500
+  },
+  {
+    "id": "PLC-038",
+    "name": "Placeholder Project E",
+    "cost_mvr": 400000,
+    "purpose": "Placeholder purpose E",
+    "justification": "Placeholder justification E",
+    "status": "Pending",
+    "rating": 1500
+  },
+  {
+    "id": "PLC-039",
+    "name": "Placeholder Project F",
+    "cost_mvr": 65000,
+    "purpose": "Placeholder purpose F",
+    "justification": "Placeholder justification F",
+    "status": "Pending",
+    "rating": 1500
+  },
+  {
+    "id": "PLC-040",
+    "name": "Placeholder Project G",
+    "cost_mvr": 125000,
+    "purpose": "Placeholder purpose G",
+    "justification": "Placeholder justification G",
+    "status": "Pending",
+    "rating": 1500
+  },
+  {
+    "id": "PLC-041",
+    "name": "Placeholder Project H",
+    "cost_mvr": 320000,
+    "purpose": "Placeholder purpose H",
+    "justification": "Placeholder justification H",
+    "status": "Pending",
+    "rating": 1500
+  },
+  {
+    "id": "PLC-042",
+    "name": "Placeholder Project I",
+    "cost_mvr": 95000,
+    "purpose": "Placeholder purpose I",
+    "justification": "Placeholder justification I",
+    "status": "Pending",
+    "rating": 1500
+  },
+  {
+    "id": "PLC-043",
+    "name": "Placeholder Project J",
+    "cost_mvr": 550000,
+    "purpose": "Placeholder purpose J",
+    "justification": "Placeholder justification J",
+    "status": "Pending",
+    "rating": 1500
+  },
+  {
+    "id": "PLC-044",
+    "name": "Placeholder Project K",
+    "cost_mvr": 45000,
+    "purpose": "Placeholder purpose K",
+    "justification": "Placeholder justification K",
+    "status": "Pending",
+    "rating": 1500
+  },
+  {
+    "id": "PLC-045",
+    "name": "Placeholder Project L",
+    "cost_mvr": 180000,
+    "purpose": "Placeholder purpose L",
+    "justification": "Placeholder justification L",
+    "status": "Pending",
+    "rating": 1500
+  },
+  {
+    "id": "PLC-046",
+    "name": "Placeholder Project M",
+    "cost_mvr": 240000,
+    "purpose": "Placeholder purpose M",
+    "justification": "Placeholder justification M",
+    "status": "Pending",
+    "rating": 1500
+  },
+  {
+    "id": "PLC-047",
+    "name": "Placeholder Project N",
+    "cost_mvr": 70000,
+    "purpose": "Placeholder purpose N",
+    "justification": "Placeholder justification N",
+    "status": "Pending",
+    "rating": 1500
+  },
+  {
+    "id": "PLC-048",
+    "name": "Placeholder Project O",
+    "cost_mvr": 380000,
+    "purpose": "Placeholder purpose O",
+    "justification": "Placeholder justification O",
+    "status": "Pending",
+    "rating": 1500
+  },
+  {
+    "id": "PLC-049",
+    "name": "Placeholder Project P",
+    "cost_mvr": 110000,
+    "purpose": "Placeholder purpose P",
+    "justification": "Placeholder justification P",
+    "status": "Pending",
+    "rating": 1500
+  },
+  {
+    "id": "PLC-050",
+    "name": "Placeholder Project Q",
+    "cost_mvr": 200000,
+    "purpose": "Placeholder purpose Q",
+    "justification": "Placeholder justification Q",
+    "status": "Pending",
+    "rating": 1500
+  },
+  {
+    "id": "PLC-051",
+    "name": "Placeholder Project R",
+    "cost_mvr": 420000,
+    "purpose": "Placeholder purpose R",
+    "justification": "Placeholder justification R",
+    "status": "Pending",
+    "rating": 1500
+  },
+  {
+    "id": "PLC-052",
+    "name": "Placeholder Project S",
+    "cost_mvr": 88000,
+    "purpose": "Placeholder purpose S",
+    "justification": "Placeholder justification S",
+    "status": "Pending",
+    "rating": 1500
+  },
+  {
+    "id": "PLC-053",
+    "name": "Placeholder Project T",
+    "cost_mvr": 600000,
+    "purpose": "Placeholder purpose T",
+    "justification": "Placeholder justification T",
+    "status": "Pending",
+    "rating": 1500
+  },
+  {
+    "id": "PLC-054",
+    "name": "Placeholder Project U",
+    "cost_mvr": 35000,
+    "purpose": "Placeholder purpose U",
+    "justification": "Placeholder justification U",
+    "status": "Pending",
+    "rating": 1500
+  },
+  {
+    "id": "PLC-055",
+    "name": "Placeholder Project V",
+    "cost_mvr": 165000,
+    "purpose": "Placeholder purpose V",
+    "justification": "Placeholder justification V",
+    "status": "Pending",
+    "rating": 1500
+  },
+  {
+    "id": "PLC-056",
+    "name": "Placeholder Project W",
+    "cost_mvr": 290000,
+    "purpose": "Placeholder purpose W",
+    "justification": "Placeholder justification W",
+    "status": "Pending",
+    "rating": 1500
+  },
+  {
+    "id": "PLC-057",
+    "name": "Placeholder Project X",
+    "cost_mvr": 78000,
+    "purpose": "Placeholder purpose X",
+    "justification": "Placeholder justification X",
+    "status": "Pending",
+    "rating": 1500
+  },
+  {
+    "id": "PLC-058",
+    "name": "Placeholder Project Y",
+    "cost_mvr": 450000,
+    "purpose": "Placeholder purpose Y",
+    "justification": "Placeholder justification Y",
+    "status": "Pending",
+    "rating": 1500
+  },
+  {
+    "id": "PLC-059",
+    "name": "Placeholder Project Z",
+    "cost_mvr": 135000,
+    "purpose": "Placeholder purpose Z",
+    "justification": "Placeholder justification Z",
+    "status": "Pending",
+    "rating": 1500
+  },
+  {
+    "id": "PLC-060",
+    "name": "Placeholder Project AA",
+    "cost_mvr": 210000,
+    "purpose": "Placeholder purpose AA",
+    "justification": "Placeholder justification AA",
+    "status": "Pending",
+    "rating": 1500
+  },
+  {
+    "id": "PLC-061",
+    "name": "Placeholder Project AB",
+    "cost_mvr": 330000,
+    "purpose": "Placeholder purpose AB",
+    "justification": "Placeholder justification AB",
+    "status": "Pending",
+    "rating": 1500
+  },
+  {
+    "id": "PLC-062",
+    "name": "Placeholder Project AC",
+    "cost_mvr": 92000,
+    "purpose": "Placeholder purpose AC",
+    "justification": "Placeholder justification AC",
+    "status": "Pending",
+    "rating": 1500
+  },
+  {
+    "id": "PLC-063",
+    "name": "Placeholder Project AD",
+    "cost_mvr": 750000,
+    "purpose": "Placeholder purpose AD",
+    "justification": "Placeholder justification AD",
+    "status": "Pending",
+    "rating": 1500
+  }
+] 
