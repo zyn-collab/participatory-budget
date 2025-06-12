@@ -49,8 +49,8 @@ export default function ParticipatingBudgetingApp() {
   const surplus = availableBudget - totalSpending;
 
   // Calculate live debt and debt-to-GDP ratio
-  // If there's a deficit, it adds to debt; if there's a surplus used for debt payment, it reduces debt
-  const currentDebt = baseDebt + totalBorrowing - totalDebtPayment + (surplus < 0 ? Math.abs(surplus) : 0);
+  // Only explicit borrowing increases debt and debt payments reduce debt
+  const currentDebt = baseDebt + totalBorrowing - totalDebtPayment;
   const currentDebtToGDPRatio = ((currentDebt / gdp) * 100);
 
   const addProject = (programme: Programme) => {
@@ -169,7 +169,7 @@ export default function ParticipatingBudgetingApp() {
               </div>
               {surplus < 0 && (
                 <div className="small text-danger mt-2">
-                  ⚠️ Deficit will increase national debt to MVR {currentDebt.toLocaleString()}
+                  ⚠️ Budget deficit of MVR {Math.abs(surplus).toLocaleString()} - consider reducing spending or increasing revenue
                 </div>
               )}
             </div>
