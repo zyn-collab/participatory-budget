@@ -105,10 +105,10 @@ export default function ParticipatingBudgetingApp() {
         <div className="text-center">
           <div className="h4 text-muted">Loading...</div>
         </div>
-      </div>
+        </div>
     );
   }
-
+  
   return (
     <div style={{ minHeight: '100vh', backgroundColor: '#f8f9fa' }}>
       {/* Header with Economic Indicators */}
@@ -250,7 +250,7 @@ export default function ParticipatingBudgetingApp() {
                         </button>
                       </div>
                     </div>
-                  </div>
+        </div>
 
                   {/* Borrow Money */}
                   <div className="col-12">
@@ -331,7 +331,7 @@ export default function ParticipatingBudgetingApp() {
             className="btn btn-lg btn-dark px-5"
           >
             Submit Budget Plan
-          </button>
+        </button>
         </div>
       </div>
     </div>
