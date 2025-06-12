@@ -6,6 +6,7 @@ export interface Programme {
   justification: string;
   status: string;
   rating: number;
+  agency: string;
 }
 
 export interface ProgrammeShareOption {

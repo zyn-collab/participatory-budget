@@ -1,4 +1,7 @@
-/* Basic Global Styles - No Tailwind */
+/* Import Bootstrap CSS */
+@import 'bootstrap/dist/css/bootstrap.min.css';
+
+/* Basic Global Styles */
 
 body {
   margin: 0;

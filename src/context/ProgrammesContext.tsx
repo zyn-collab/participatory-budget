@@ -2,7 +2,6 @@
 
 import React, { createContext, useContext, useEffect, useState, useCallback } from 'react';
 import { Programme, ProgrammeContextType, MatchupOption, ProgrammeCombination, isProgrammeCombination, ProgrammeShareOption, isProgrammeShareOption } from '@/types/programme';
-import initialProgrammesData from '@/data/programmes.json';
 import { updateElo } from '@/utils/elo'; // Assuming elo.ts is in utils
 
 const ProgrammesContext = createContext<ProgrammeContextType | undefined>(undefined);
@@ -22,60 +21,68 @@ export function ProgrammesProvider({ children }: { children: React.ReactNode }) 
 
   // Load initial data from localStorage or use default data
   useEffect(() => {
-    setIsLoading(true);
-    setError(null);
-    try {
-      let loadedProgrammes: Programme[] = initialProgrammesData.map(p => ({ ...p, rating: p.rating || 1500 }));
-      let loadedVoteCount = 0;
-      let loadedUsedPairs = new Set<string>();
-      let loadedCurrentBudget: number | null = null; // Variable to hold loaded budget
+    const loadData = async () => {
+      setIsLoading(true);
+      setError(null);
+      try {
+        // Dynamically import the JSON data to get the latest version
+        const { default: initialProgrammesData } = await import('@/data/programmes.json');
+        
+        let loadedProgrammes: Programme[] = initialProgrammesData.map((p: any) => ({ ...p, rating: p.rating || 1500 }));
+        let loadedVoteCount = 0;
+        let loadedUsedPairs = new Set<string>();
+        let loadedCurrentBudget: number | null = null; // Variable to hold loaded budget
 
-      if (typeof window !== 'undefined') {
-        const storedProgrammes = localStorage.getItem('programmes');
-        const storedVoteCount = localStorage.getItem('voteCount');
-        const storedUsedPairs = localStorage.getItem('usedPairs');
-        const storedCurrentBudget = localStorage.getItem('currentBudget'); // Load current budget
+        if (typeof window !== 'undefined') {
+          const storedProgrammes = localStorage.getItem('programmes');
+          const storedVoteCount = localStorage.getItem('voteCount');
+          const storedUsedPairs = localStorage.getItem('usedPairs');
+          const storedCurrentBudget = localStorage.getItem('currentBudget'); // Load current budget
 
-        if (storedProgrammes) {
-          try {
-            loadedProgrammes = JSON.parse(storedProgrammes);
-          } catch (e) {
-            console.error("Failed to parse programmes from localStorage", e);
-            setError("Failed to load saved progress. Starting fresh.");
-            // Fallback to initial data if parsing fails
-            loadedProgrammes = initialProgrammesData.map(p => ({ ...p, rating: p.rating || 1500 }));
+          if (storedProgrammes) {
+            try {
+              loadedProgrammes = JSON.parse(storedProgrammes);
+            } catch (e) {
+              console.error("Failed to parse programmes from localStorage", e);
+              setError("Failed to load saved progress. Starting fresh.");
+              // Fallback to initial data if parsing fails
+              loadedProgrammes = initialProgrammesData.map((p: any) => ({ ...p, rating: p.rating || 1500 }));
+            }
+          }
+          if (storedVoteCount) {
+            loadedVoteCount = parseInt(storedVoteCount) || 0;
+          }
+          if (storedUsedPairs) {
+            try {
+              loadedUsedPairs = new Set(JSON.parse(storedUsedPairs));
+            } catch (e) {
+              console.error("Failed to parse usedPairs from localStorage", e);
+              // Fallback to empty set
+            }
+          }
+          if (storedCurrentBudget) { // Check and parse stored budget
+            const budget = parseInt(storedCurrentBudget);
+            if (!isNaN(budget)) {
+              loadedCurrentBudget = budget;
+            } else {
+              localStorage.removeItem('currentBudget'); // Remove invalid entry
+            }
           }
         }
-        if (storedVoteCount) {
-          loadedVoteCount = parseInt(storedVoteCount) || 0;
-        }
-        if (storedUsedPairs) {
-          try {
-            loadedUsedPairs = new Set(JSON.parse(storedUsedPairs));
-          } catch (e) {
-            console.error("Failed to parse usedPairs from localStorage", e);
-            // Fallback to empty set
-          }
-        }
-        if (storedCurrentBudget) { // Check and parse stored budget
-          const budget = parseInt(storedCurrentBudget);
-          if (!isNaN(budget)) {
-            loadedCurrentBudget = budget;
-          } else {
-            localStorage.removeItem('currentBudget'); // Remove invalid entry
-          }
-        }
+        setProgrammes(loadedProgrammes);
+        setVoteCount(loadedVoteCount);
+        setUsedPairs(loadedUsedPairs);
+        setCurrentBudget(loadedCurrentBudget); // Set the loaded budget
+      } catch (e: any) {
+        console.error("Error initializing programmes state:", e);
+        setError("Could not initialize app state. " + e.message);
+        // Fallback to empty array if we can't load data
+        setProgrammes([]);
       }
-      setProgrammes(loadedProgrammes);
-      setVoteCount(loadedVoteCount);
-      setUsedPairs(loadedUsedPairs);
-      setCurrentBudget(loadedCurrentBudget); // Set the loaded budget
-    } catch (e: any) {
-      console.error("Error initializing programmes state:", e);
-      setError("Could not initialize app state. " + e.message);
-      setProgrammes(initialProgrammesData.map(p => ({ ...p, rating: p.rating || 1500 }))); // Ensure fallback
-    }
-    setIsLoading(false);
+      setIsLoading(false);
+    };
+
+    loadData();
   }, []);
 
   // Save to localStorage whenever state changes
@@ -108,18 +115,25 @@ export function ProgrammesProvider({ children }: { children: React.ReactNode }) 
     );
   }, []);
 
-  const resetRatingsAndData = useCallback(() => {
+  const resetRatingsAndData = useCallback(async () => {
     setIsLoading(true);
-    const initialDataWithRatings = initialProgrammesData.map(p => ({ ...p, rating: p.rating || 1500 }));
-    setProgrammes(initialDataWithRatings);
-    setVoteCount(0);
-    setUsedPairs(new Set());
-    localStorage.removeItem('programmes');
-    localStorage.removeItem('voteCount');
-    localStorage.removeItem('usedPairs');
-    localStorage.removeItem('currentBudget'); // Clear currentBudget on reset
-    setCurrentBudget(null); // Reset budget state
-    setError(null);
+    try {
+      // Dynamically import the JSON data to get the latest version
+      const { default: initialProgrammesData } = await import('@/data/programmes.json');
+      const initialDataWithRatings = initialProgrammesData.map((p: any) => ({ ...p, rating: p.rating || 1500 }));
+      setProgrammes(initialDataWithRatings);
+      setVoteCount(0);
+      setUsedPairs(new Set());
+      localStorage.removeItem('programmes');
+      localStorage.removeItem('voteCount');
+      localStorage.removeItem('usedPairs');
+      localStorage.removeItem('currentBudget'); // Clear currentBudget on reset
+      setCurrentBudget(null); // Reset budget state
+      setError(null);
+    } catch (e: any) {
+      console.error("Error resetting data:", e);
+      setError("Could not reset data. " + e.message);
+    }
     setIsLoading(false);
   }, []);
 

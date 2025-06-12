@@ -10,7 +10,11 @@
     "type-check": "tsc --noEmit"
   },
   "dependencies": {
+    "bootstrap": "^5.3.6",
     "next": "latest",
+    "postcss-flexbugs-fixes": "^5.0.2",
+    "postcss-import": "^16.1.0",
+    "postcss-preset-env": "^10.2.3",
     "react": "latest",
     "react-dom": "latest"
   },
