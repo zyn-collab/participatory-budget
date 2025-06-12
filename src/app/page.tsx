@@ -115,7 +115,8 @@ export default function ParticipatingBudgetingApp() {
       <div className="bg-white shadow-sm border-bottom">
         <div className="container-fluid" style={{ maxWidth: '1200px' }}>
           <div className="py-4">
-            <h1 className="h2 fw-bold text-dark mb-3">Participatory Budget Planner</h1>
+            <h1 className="h2 fw-bold text-dark mb-2">Participatory Budget Planner</h1>
+            <p className="fst-italic text-muted mb-3" style={{ fontSize: '1rem' }}>a public policy lab project</p>
             
             <p className="text-muted mb-4" style={{ fontSize: '0.9rem', lineHeight: '1.5' }}>
               Create your ideal government budget by selecting projects up to the budget limit. You can increase the budget limit and fund more projects by increasing tax revenue or borrowing more, but additional borrowing adds to the national debt. You can also choose to pay off debt. Choose your ideal trade-offs on where to spend the government's fiscal resources: how much you want to allocate to which projects, how much you want to spend on paying down debt for the future, how much you want to add to future debt to fund work now. When you've made your ideal budget, submit and the public input will be considered by the Ministry of Finance when prioritizing projects for the Budget Year 2026.
